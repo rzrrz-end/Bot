@@ -11,23 +11,23 @@ Telegram-бот, который принимает текстовые сообщ
 
 ## Как запустить
 
-1. **Клонируй**
+1. Клонируй
    git clone https://github.com/твой-логин/feedback-bot.git
    cd feedback-bot
-2. **Установи библиотеки**
+2. Установи библиотеки
      pip install aiogram aiohttp
-3. **Получи токен бота у @BotFather** 
+3. Получи токен бота у @BotFather 
 
-4. **Узнай свой ADMIN_CHAT_ID**
+4. Узнай свой ADMIN_CHAT_ID
 Напиши боту любое сообщение в Telegram, перейди по ссылке:
 https://api.telegram.org/bot<ТВОЙ_ТОКЕН>/getUpdates
 Найди поле chat -> id. Это и есть ID чата. Для канала — обычно отрицательное.
 
-5. **Вставь значения в bot.py:**
+5. Вставь значения в bot.py:
   BOT_TOKEN = "твой_токен"
   ADMIN_CHAT_ID = 123456789  # твой ID (без кавычек, число)
 
-6. **Запусти**
+6. Запусти
   python bot.py
 
 
