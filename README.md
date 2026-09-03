@@ -12,7 +12,7 @@ Telegram-бот, который принимает текстовые сообщ
 ## Как запустить
 
 1. Клонируй
-   git clone https://github.com/твой-логин/feedback-bot.git
+   git clone https://github.com/rzrrz-end/feedback-bot.git
    cd feedback-bot
 2. Установи библиотеки
      pip install aiogram aiohttp
