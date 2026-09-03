@@ -6,12 +6,11 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import Command
 
 BOT_TOKEN = "ВАШ_ТОКЕН"
-ADMIN_CHAT_ID = ID_ЧАТА_АДМИНА_ИЛИ_КАНАЛА  # например, -1001234567890 для канала
+ADMIN_CHAT_ID = ID_ЧАТА_АДМИНА_ИЛИ_КАНАЛА  
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-# База для хранения обращений (необязательно, но для солидности)
 conn = sqlite3.connect("feedback.db", check_same_thread=False)
 cursor = conn.cursor()
 cursor.execute("""
@@ -34,7 +33,7 @@ async def start_cmd(message: Message):
         "Администратор рассмотрит и свяжется с вами (если оставили контакт)."
     )
 
-@dp.message(lambda msg: True)  # Обработка любых сообщений (текст, фото, документ)
+@dp.message(lambda msg: True)  
 async def handle_feedback(message: Message):
     user = message.from_user
     text = message.text or message.caption or "Файл без текста"
@@ -48,14 +47,14 @@ async def handle_feedback(message: Message):
         file_id = message.document.file_id
         file_type = "document"
     
-    # Сохраняем в базу
+   
     cursor.execute(
         "INSERT INTO feedback (user_id, username, message, file_id, created_at) VALUES (?, ?, ?, ?, ?)",
         (user.id, user.username or user.first_name, text, file_id, datetime.now())
     )
     conn.commit()
     
-    # Пересылаем админу
+
     caption = f"📩 Новое обращение\nОт: @{user.username} (ID: {user.id})\nТекст: {text}\nДата: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
     if file_id:
         if file_type == "photo":
@@ -64,8 +63,8 @@ async def handle_feedback(message: Message):
             await bot.send_document(chat_id=ADMIN_CHAT_ID, document=file_id, caption=caption)
     else:
         await bot.send_message(chat_id=ADMIN_CHAT_ID, text=caption)
+
     
-    # Ответ пользователю
     await message.answer("✅ Спасибо! Ваше обращение принято.")
 
 async def main():
